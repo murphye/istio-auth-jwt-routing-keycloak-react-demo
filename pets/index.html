@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="module">
+            import { html, render } from 'https://unpkg.com/htm/preact/index.mjs?module'
+            import 'https://unpkg.com/keycloak-js@18.0.0/dist/keycloak.js'
+            
+            function App (props) {
+
+                const keycloak = new Keycloak({
+                    url: 'http://keycloak.127.0.0.1.nip.io:8080',
+                    realm: 'petstore',
+                    clientId: 'pets'
+                });
+                keycloak.init();
+                
+                return html`<div><h1>Hello ${props.name}!</h1><button type="button" onClick=${() => keycloak.login()}>Log In</button></div>`;
+            }
+            
+            render(html`<${App} name="World" />`, document.body);
+        </script>
+    </head>
+    <body></body>
+</html>

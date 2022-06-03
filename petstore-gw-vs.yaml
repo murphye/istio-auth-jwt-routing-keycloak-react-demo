@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: petstore-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "petstore.127.0.0.1.nip.io"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: petstore
+spec:
+  hosts:
+  - "petstore.127.0.0.1.nip.io"
+  gateways:
+  - petstore-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api/pets
+    route:
+    - destination:
+        host: petstore
+        port:
+          number: 8080
+    corsPolicy:
+      allowOrigins:
+      - exact: http://pets.127.0.0.1.nip.io:8080
+      allowMethods:
+      - POST
+      - GET
+      allowCredentials: false
+      maxAge: "24h"
