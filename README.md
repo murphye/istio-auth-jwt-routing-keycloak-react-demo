@@ -50,9 +50,9 @@ Go to `http://keycloak.127.0.0.1.nip.io:8080` in your browser to access the Keyc
 ### Setup Keycloak Client
 
 1. Create a Realm `petstore`
-1. Create a User
-1. Set the User's password (Not Temporary)
-1. Create a `pets` Client that has a Root URL of `http://pets.127.0.0.1.nip.io:8080`
+1. Create a User (i.e. `eric`)
+1. Set the User's non-temporary password (i.e. `eric`) 
+1. Create a `petstore` Client that has a Root URL of `http://petstore.127.0.0.1.nip.io:9000`
 
 ## Deploy the Pet Store Service
 
@@ -71,9 +71,14 @@ When deployed, try to call the Pet Store service:
 curl -v petstore.127.0.0.1.nip.io:8080/api/pets
 ```
 
-## Deploy the Pets Application
+## Run the Pets Application
 
 **Pets** is a single-page application (SPA) written in React that interfaces with the Pet Store API. It uses the Keycloak JavaScript adapter to facilitate authentication.
+
+
+```
+python3 -m http.server 3000
+```
 
 TODO
 
